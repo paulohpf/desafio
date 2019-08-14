@@ -1,74 +1,78 @@
 .header {
+  width: 100%;
   height: 64px;
   display: flex;
-  .logo {
-    width: 200px;
-    height: 64px;
-    background: url("../../images/logo.png") center #1bbc9b no-repeat;
-    margin: 0 0 16px 0;
-    float: left;
+  justify-content: space-between;
+  padding: 0 19px;
+
+  //Mobile
+  @media (max-width: 992px) {
+    padding: 0;
   }
+
+  .search {
+    padding: 5px;
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    input {
+      border-radius: 30px;
+      width: 100%;
+      height: 40px;
+      max-width: 500px;
+      border: 1px solid #f5f5f5;
+      // padding: 7px 15px 7px 35px;
+      padding: 7px 15px 7px 50px;
+    }
+    &:before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      background: url("../../images/lupa.png") no-repeat center;
+      background-size: 100%;
+      display: block;
+      position: absolute;
+      top: 23px;
+      left: 25px;
+    }
+  }
+
   .header-menu {
     border-bottom: none;
-    padding: 7px;
+    flex-grow: 0;
+    display: flex;
 
-    .search {
-      float: left;
-      width: 500px;
-      input {
-        border-radius: 30px;
-        width: 100%;
-        border: 1px solid #f5f5f5;
-        padding: 0 15px;
-      }
+    .ant-menu-item {
+      height: 100%;
+      padding: 5px;
+      margin: 0;
     }
-    .user-group {
-      float: right;
-      .ant-menu-item-group-title {
-        display: none !important;
+
+    .ant-menu-item.notification {
+      width: 50px;
+      height: 100%;
+      background: url("../../images/notification.png") no-repeat center;
+      vertical-align: initial;
+    }
+
+    .ant-menu-item.user-avatar {
+      &:before {
+        content: "";
+        width: 60px;
+        height: 100%;
+        background: url("../../images/user-avatar.png") no-repeat center;
+        position: relative;
+        display: inline-block;
       }
 
-      .ant-menu-item {
-        padding: 0 16px;
-      }
-
-      .ant-menu-item.notification {
-        &:before {
-          content: "";
-          width: 25px;
-          height: 25px;
-          background: url("../../images/notification.png") no-repeat center;
-          position: relative;
-          display: inline-block;
-          vertical-align: middle;
-        }
-      }
-
-      .ant-menu-item.user-avatar {
-        &:before {
-          content: "";
-          width: 50px;
-          height: 50px;
-          background: url("../../images/user-avatar.png") no-repeat center;
-          position: relative;
-          display: inline-block;
-          vertical-align: middle;
-          padding: 0 70px 0 0;
-        }
-
-        &:after {
-          content: "";
-          width: 15px;
-          height: 15px;
-          background: url("../../images/arrow-down.png") no-repeat center;
-          position: relative;
-          display: inline-block;
-          vertical-align: middle;
-        }
-      }
-
-      .ant-menu-item-group-list {
-        display: flex;
+      &:after {
+        content: "";
+        width: 15px;
+        height: 100%;
+        background: url("../../images/arrow-down.png") no-repeat center;
+        position: relative;
+        display: inline-block;
       }
     }
   }

@@ -10,11 +10,14 @@ class SiderComponent extends Component {
         return (
             <Sider
                 className="sider"
-                theme="light">
+                theme="light"
+                breakpoint="lg"
+                collapsedWidth="0"
+            >
+                <div key="logo" className="logo" />
                 <Menu
                     mode="inline"
                 >
-                    <div className="logo" />
                     <Menu.Item key="painel" className="painel">
                         Painel
                     </Menu.Item>

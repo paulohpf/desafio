@@ -1,6 +1,12 @@
 .sider {
+  .logo {
+    width: 200px;
+    height: 64px;
+    background: url("../../images/logo.png") center #1bbc9b no-repeat;
+    margin: 0 0 16px 0;
+    float: left;
+  }
   .ant-menu {
-
     .ant-menu-item {
       text-align: left;
 
@@ -45,6 +51,7 @@
       position: absolute;
       bottom: 0;
       color: #fff !important;
+      font-weight: 600;
 
       &:before {
         content: "";

@@ -39,6 +39,9 @@ const columns = [
         title: 'amount',
         dataIndex: 'amount',
         key: 'amount',
+        render: amount => (
+            setAmount(amount)
+        )
     },
     {
         title: 'status',
@@ -50,6 +53,12 @@ const columns = [
     },
 ];
 
+//Configuro a exibição da moeda
+const setAmount = (amount) => {
+    return <span>{`R$ ${amount.toString().replace('.', ',')}`}</span>
+}
+
+//Validação de status Adimplente/Inadimplente
 const validateStatus = (status) => {
     switch (status) {
         case "0":
@@ -59,7 +68,16 @@ const validateStatus = (status) => {
     }
 }
 
-// let pagination = { pageSize: 7, total: 15, showHeader: false, current: 1 };
+const setPaginationStyle = (current, type, originalElement) => {
+    switch (type) {
+        case "prev":
+            return <a className="ant-pagination-item-link">Anterior</a>
+        case "next":
+            return <a className="ant-pagination-item-link">Próximo</a>
+        default:
+            return originalElement;
+    }
+}
 
 const UsersList = ({ usersList, searchValue, dispatch }) => (
     <div className="usersList">
@@ -79,6 +97,10 @@ const UsersList = ({ usersList, searchValue, dispatch }) => (
             className="ant-table-pagination"
             pageSize={INDEX_PAGE_SIZE_DEFAULT}
             total={usersList.data.total}
+            itemRender={(current, type, originalElement) =>
+                setPaginationStyle(current, type, originalElement)
+            }
+
             onChange={(currentPage) => {
                 dispatch(actions.set_users_list_loading());
                 const offset = ((INDEX_PAGE_SIZE_DEFAULT * currentPage) - INDEX_PAGE_SIZE_DEFAULT);
@@ -86,7 +108,6 @@ const UsersList = ({ usersList, searchValue, dispatch }) => (
                 Utils.getUsers(offset, currentPage, dispatch);
             }}
         />
-        {JSON.stringify(usersList)}
     </div>
 )
 

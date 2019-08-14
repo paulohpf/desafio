@@ -24,10 +24,10 @@ function App() {
     <div className="App">
       <Provider store={store}>
         <Layout className="container">
-          <Header />
+          <Sider />
           <Layout>
-            <Sider />
-            <Content style={{ padding: '24px' }}>
+          <Header />
+            <Content style={{ padding: '19px' }}>
               <Dashboard />
             </Content>
           </Layout>

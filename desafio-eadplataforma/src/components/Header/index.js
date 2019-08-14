@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu } from 'antd';
-// import { Layout } from 'antd';
+import { Layout } from 'antd';
 import { connect } from 'react-redux';
 import "./Header.scss";
 
@@ -12,25 +12,16 @@ function handleSearchOnChange(searchValue) {
 }
 
 const Header = ({ modules, dispatch }) => (
-    <header className="header" style={{ background: '#fff', padding: 0 }} >
-        <div key="logo" className="logo" />
-        <Menu
-            theme="light"
-            mode="horizontal"
-            className="header-menu"
-        >
-            <Menu.Item key="search" className="search"
-                disabled="true">
-                <form>
-                    <input name="input-search" type="text" value={modules.searchValue} placeholder="Busque por clientes" onChange={(event) => dispatch(handleSearchOnChange(event.target.value))} />
-                </form>
+    <header className="header" style={{ background: '#fff', }}>
+        <div className="search">
+            <input name="input-search" type="text" value={modules.searchValue} placeholder="Busque por clientes" onChange={(event) => dispatch(handleSearchOnChange(event.target.value))} />
+        </div>
+        <Menu className="header-menu"
+            mode="horizontal">
+            <Menu.Item key="notification" className="notification">
             </Menu.Item>
-            <Menu.ItemGroup className="user-group">
-                <Menu.Item key="notification" className="notification">
-                </Menu.Item>
-                <Menu.Item key="user-avatar" className="user-avatar">
-                </Menu.Item>
-            </Menu.ItemGroup>
+            <Menu.Item key="user-avatar" className="user-avatar">
+            </Menu.Item>
         </Menu>
     </header>
 );
