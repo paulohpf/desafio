@@ -5,12 +5,10 @@ import { Avatar, Table, Pagination } from 'antd';
 import * as Utils from '../../Utils/Utils';
 import * as actions from "../../store/actions";
 
-/*
-    TODO: Instalar lodash para carregamento do Axios
-*/
-
 //Quantidade de itens por página 
 const INDEX_PAGE_SIZE_DEFAULT = 7
+
+//Colunas da Tabela
 const columns = [
     {
         title: 'avatar',
@@ -80,10 +78,9 @@ const setPaginationStyle = (current, type, originalElement) => {
 }
 
 const UsersList = ({ usersList, searchValue, dispatch }) => (
-    <div className="usersList">
-        {searchValue === '' ? <h2>Clientes Cadastrados</h2> : ''}
+    <div className={`usersList ${searchValue !== '' ? 'search-result' : ''}`}>
         <Table
-            dataSource={usersList.data.users}
+            dataSource={searchValue === '' ? usersList.data.users : usersList.dataSearch}
             columns={columns}
             rowKey="id"
             loading={usersList.loading}

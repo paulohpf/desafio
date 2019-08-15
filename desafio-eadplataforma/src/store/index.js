@@ -7,13 +7,12 @@ const INITIAL_STATE = {
         pagination: {
             current: 1
         },
-        data: {}
+        data: {},
+        dataSearch: {}
     }
 }
 
 function reducer(state = INITIAL_STATE, action) {
-    console.log(action.type);
-
     switch (action.type) {
         case 'SET_SEARCH':
             return {
@@ -24,17 +23,26 @@ function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 usersList: {
-                    pagination: action.pagination,
+                    // pagination: action.pagination,
                     data: action.data,
                     loading: action.loading
+                }
+            }
+        case 'UPDATE_SEARCH_LIST':
+            return {
+                ...state,
+                usersList: {
+                    ...state.usersList,
+                    loading: action.loading,
+                    dataSearch: action.data
                 }
             }
         case 'SET_USERS_LIST_LOADING':
             return {
                 ...state,
                 usersList: {
-                    pagination: {...state.usersList.pagination},
-                    data: {...state.usersList.data},
+                    // pagination: {...state.usersList.pagination},
+                    data: { ...state.usersList.data },
                     loading: action.loading
                 }
             }
@@ -42,12 +50,12 @@ function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 usersList: {
-                    data: {...state.usersList.data},
-                    loading: {...state.usersList.loading},
-                    pagination: action.pagination
+                    data: { ...state.usersList.data },
+                    loading: { ...state.usersList.loading },
+                    // pagination: action.pagination
                 }
             }
-            
+
 
         default:
             return state;

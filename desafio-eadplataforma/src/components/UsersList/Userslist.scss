@@ -5,6 +5,12 @@
     border-radius: 5px;
   }
 
+  &.search-result{
+    .ant-table-pagination {
+      display: none;
+    }
+  }
+
   .ant-list-item {
     justify-content: space-between;
     background: #fff;

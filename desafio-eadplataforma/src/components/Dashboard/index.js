@@ -5,8 +5,18 @@ import UsersList from '../UsersList';
 
 const Dashboard = ({ modules, dispatch }) => (
     <div className="dashboard">
-        <Overview />
-        <UsersList />
+        {/* {JSON.stringify(modules)} */}
+        {modules.searchValue === "" ? (
+            <div>
+                <Overview />
+                <h2>Clientes Cadastrados</h2>
+                <UsersList />
+            </div>
+        ) : (
+                <UsersList />
+            )
+
+        }
     </div>
 )
 

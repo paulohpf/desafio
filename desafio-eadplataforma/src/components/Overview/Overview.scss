@@ -1,0 +1,39 @@
+.overview {
+    .data {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        div {
+            flex-grow: 1;
+            max-width: 200px;
+            width: 200px;
+            height: 80px;
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 6px 6px 8px #e6e6e6;
+            display: flex;
+            flex-direction: column;
+            h3 {
+                margin: 0;
+                font-size: 16px;
+                color: #999999;
+            }
+            .value {
+                font-size: 22px;
+                color: #1bbc9b;
+                font-weight: bold;
+            }
+        }
+
+        //Mobile
+        @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: center;
+
+            div:not(:last-child) {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
