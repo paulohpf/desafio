@@ -6,6 +6,14 @@ export function update_users_list(usersList) {
     }
 }
 
+export function update_users_paginated_list(usersList) {
+    return {
+        type: 'UPDATE_USERS_PAGINATED_LIST',
+        loading: false,
+        users: usersList.users
+    }
+}
+
 export function update_search_list(usersList) {
     return {
         type: 'UPDATE_SEARCH_LIST',

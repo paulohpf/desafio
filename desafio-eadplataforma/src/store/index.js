@@ -3,12 +3,12 @@ import { createStore } from 'redux';
 const INITIAL_STATE = {
     searchValue: '',
     usersList: {
-        loading: false,
-        pagination: {
-            current: 1
-        },
-        data: {},
-        dataSearch: {}
+        totalUsers: '',
+        totalInadimplentes: '',
+        totalAdimplentes: '',
+        totalAmount: '',
+        users: [],
+        loading: false
     }
 }
 
@@ -19,15 +19,31 @@ function reducer(state = INITIAL_STATE, action) {
                 ...state,
                 searchValue: action.searchValue
             };
+        /*
+        TODO
+        Mudar de UPDATE_USERS_LIST para GET_DASHBOARD_DATA
+         */
         case 'UPDATE_USERS_LIST':
             return {
                 ...state,
                 usersList: {
-                    // pagination: action.pagination,
-                    data: action.data,
+                    totalUsers: action.data.totalUsers,
+                    totalInadimplentes: action.data.totalInadimplentes,
+                    totalAdimplentes: action.data.totalAdimplentes,
+                    totalAmount: action.data.totalAmount,
+                    users: action.data.users,
                     loading: action.loading
                 }
             }
+        case 'UPDATE_USERS_PAGINATED_LIST':
+            return {
+                ...state,
+                usersList: {
+                    ...state.usersList,
+                    users: action.users,
+                    loading: action.loading
+                    }
+                }
         case 'UPDATE_SEARCH_LIST':
             return {
                 ...state,
@@ -41,8 +57,7 @@ function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 usersList: {
-                    // pagination: {...state.usersList.pagination},
-                    data: { ...state.usersList.data },
+                    ...state.usersList,
                     loading: action.loading
                 }
             }

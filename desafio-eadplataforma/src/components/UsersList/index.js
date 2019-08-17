@@ -80,7 +80,7 @@ const setPaginationStyle = (current, type, originalElement) => {
 const UsersList = ({ usersList, searchValue, dispatch }) => (
     <div className={`usersList ${searchValue !== '' ? 'search-result' : ''}`}>
         <Table
-            dataSource={searchValue === '' ? usersList.data.users : usersList.dataSearch}
+            dataSource={usersList.users}
             columns={columns}
             rowKey="id"
             loading={usersList.loading}
@@ -93,16 +93,16 @@ const UsersList = ({ usersList, searchValue, dispatch }) => (
         <Pagination
             className="ant-table-pagination"
             pageSize={INDEX_PAGE_SIZE_DEFAULT}
-            total={usersList.data.total}
+            total={usersList.totalUsers}
             itemRender={(current, type, originalElement) =>
                 setPaginationStyle(current, type, originalElement)
             }
 
-            onChange={(currentPage) => {
+            onChange={async (currentPage) => {
                 dispatch(actions.set_users_list_loading());
                 const offset = ((INDEX_PAGE_SIZE_DEFAULT * currentPage) - INDEX_PAGE_SIZE_DEFAULT);
-                console.log('offset:' + offset);
-                Utils.getUsers(offset, currentPage, dispatch);
+                let response = await Utils.getUsersPaginated(offset, currentPage, dispatch);
+                dispatch(actions.update_users_paginated_list(response));
             }}
         />
     </div>

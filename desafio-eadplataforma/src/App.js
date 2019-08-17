@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import * as Utils from './Utils/Utils';
+import { getData } from './Utils/Utils';
+import * as actions from "./store/actions";
 
 import 'normalize.css';
 import 'antd/dist/antd.css';
@@ -18,7 +19,13 @@ const { Content } = Layout;
 
 function App() {
   useEffect(() => {
-    Utils.getData(store.dispatch)
+    async function fetchData() {
+      const response = await getData();
+
+      store.dispatch(actions.update_users_list(response));
+    }
+
+    fetchData();
   }, []);
   return (
     <div className="App">
@@ -26,7 +33,7 @@ function App() {
         <Layout className="container">
           <Sider />
           <Layout>
-          <Header />
+            <Header />
             <Content style={{ padding: '19px' }}>
               <Dashboard />
             </Content>
