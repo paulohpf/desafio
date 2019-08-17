@@ -7,6 +7,9 @@ const INITIAL_STATE = {
         totalInadimplentes: '',
         totalAdimplentes: '',
         totalAmount: '',
+        pagination: {
+            current: 1
+        },
         users: [],
         loading: false
     }
@@ -19,19 +22,19 @@ function reducer(state = INITIAL_STATE, action) {
                 ...state,
                 searchValue: action.searchValue
             };
-        /*
-        TODO
-        Mudar de UPDATE_USERS_LIST para GET_DASHBOARD_DATA
-         */
-        case 'UPDATE_USERS_LIST':
+        case 'GET_DASHBOARD_DATA':
             return {
                 ...state,
                 usersList: {
+                    ...state.usersList,
                     totalUsers: action.data.totalUsers,
                     totalInadimplentes: action.data.totalInadimplentes,
                     totalAdimplentes: action.data.totalAdimplentes,
                     totalAmount: action.data.totalAmount,
                     users: action.data.users,
+                    pagination: {
+                        current: action.data.pagination.current
+                    },
                     loading: action.loading
                 }
             }
@@ -41,16 +44,19 @@ function reducer(state = INITIAL_STATE, action) {
                 usersList: {
                     ...state.usersList,
                     users: action.users,
-                    loading: action.loading
+                    loading: action.loading,
+                    pagination: {
+                        current: action.pagination.current
                     }
                 }
+            }
         case 'UPDATE_SEARCH_LIST':
             return {
                 ...state,
                 usersList: {
                     ...state.usersList,
                     loading: action.loading,
-                    dataSearch: action.data
+                    users: action.search
                 }
             }
         case 'SET_USERS_LIST_LOADING':

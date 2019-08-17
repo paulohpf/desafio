@@ -1,5 +1,4 @@
 import axios from "axios";
-import * as actions from "../store/actions";
 
 axios.defaults.baseURL = 'api/1';
 axios.defaults.headers['Authorization'] = '123456789';
@@ -50,31 +49,14 @@ export async function getData() {
         totalInadimplentes: calcInadimplentes(response.data.users),
         totalAdimplentes: calcAdimplentes(response.data.users),
         totalAmount: calcAmount(response.data.users),
-        users: response.data.users
+        users: response.data.users,
+        pagination: {
+            current: 1
+        }
     }
 
     return responseObj;
 }
-
-// export function getData(dispatch) {
-//     return axios.get('users').then((response) => {
-//         dispatch(actions.update_users_list(response.data));
-//     }).catch(function (error) {
-//         console.error(error);
-//     });
-// }
-
-// export function getUsersPaginated(offset = null, pagination, dispatch) {
-//     const url = offset !== null ? `users?offset=${offset}` : 'users';
-
-//     dispatch(actions.set_users_list_loading());
-
-//     return axios.get(url).then((response) => {
-//         dispatch(actions.update_users_paginated_list(response.data, pagination));
-//     }).catch(function (error) {
-//         console.error(error);
-//     });
-// }
 
 export async function getUsersPaginated(offset = null, pagination, dispatch) {
     const url = offset !== null ? `users?offset=${offset}` : 'users';
@@ -90,21 +72,16 @@ export async function getUsersPaginated(offset = null, pagination, dispatch) {
     return responseObj;
 }
 
-/*
-TODO
-Alterar para o novo formato no Redux
-*/
-
-export function getSearchResults(searchValue = null, dispatch) {
+export async function getSearchResults(searchValue = null, dispatch) {
     const url = `search?q=${searchValue}`;
 
-    return axios.get(url).then((response) => {
-        if (response.data !== '0 records found!') {
-            dispatch(actions.update_search_list(response.data.search))
-        } else {
-            dispatch(actions.update_search_list([]))
-        }
-    }).catch(function (error) {
+    let response = await axios.get(url).catch(function (error) {
         console.error(error);
     });
+
+    let responseObj = {
+        search: response.data !== '0 records found!' ? response.data.search : []
+    }
+
+    return responseObj;
 }

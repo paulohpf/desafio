@@ -1,24 +1,28 @@
-export function update_users_list(usersList) {
+export function get_dashboard_data(data) {
     return {
-        type: 'UPDATE_USERS_LIST',
+        type: 'GET_DASHBOARD_DATA',
         loading: false,
-        data: usersList
+        data: data
     }
 }
 
-export function update_users_paginated_list(usersList) {
+export function update_users_paginated_list(data) {
+    console.log(data);
     return {
         type: 'UPDATE_USERS_PAGINATED_LIST',
         loading: false,
-        users: usersList.users
+        users: data.users,
+        pagination: {
+            current: data.currentPage
+        }
     }
 }
 
-export function update_search_list(usersList) {
+export function update_search_list(data) {
     return {
         type: 'UPDATE_SEARCH_LIST',
         loading: false,
-        data: usersList
+        search: data.search
     }
 }
 

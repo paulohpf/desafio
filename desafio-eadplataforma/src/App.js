@@ -22,7 +22,7 @@ function App() {
     async function fetchData() {
       const response = await getData();
 
-      store.dispatch(actions.update_users_list(response));
+      store.dispatch(actions.get_dashboard_data(response));
     }
 
     fetchData();

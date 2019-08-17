@@ -53,7 +53,7 @@ const columns = [
 
 //Configuro a exibição da moeda
 const setAmount = (amount) => {
-    return <span>{`R$ ${amount.toString().replace('.', ',')}`}</span>
+    return <span>{`R$ ${amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`}</span>
 }
 
 //Validação de status Adimplente/Inadimplente
@@ -79,6 +79,7 @@ const setPaginationStyle = (current, type, originalElement) => {
 
 const UsersList = ({ usersList, searchValue, dispatch }) => (
     <div className={`usersList ${searchValue !== '' ? 'search-result' : ''}`}>
+        {console.log(usersList.pagination.current)}
         <Table
             dataSource={usersList.users}
             columns={columns}
@@ -97,12 +98,12 @@ const UsersList = ({ usersList, searchValue, dispatch }) => (
             itemRender={(current, type, originalElement) =>
                 setPaginationStyle(current, type, originalElement)
             }
-
+            current={usersList.pagination.current}
             onChange={async (currentPage) => {
                 dispatch(actions.set_users_list_loading());
                 const offset = ((INDEX_PAGE_SIZE_DEFAULT * currentPage) - INDEX_PAGE_SIZE_DEFAULT);
                 let response = await Utils.getUsersPaginated(offset, currentPage, dispatch);
-                dispatch(actions.update_users_paginated_list(response));
+                dispatch(actions.update_users_paginated_list({...response, currentPage: currentPage}));
             }}
         />
     </div>
