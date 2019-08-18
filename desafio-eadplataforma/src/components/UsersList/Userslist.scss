@@ -5,7 +5,7 @@
     border-radius: 5px;
   }
 
-  &.search-result{
+  &.search-result {
     .ant-table-pagination {
       display: none;
     }
@@ -66,6 +66,19 @@
       font-size: 22px;
       color: #1bbc9b;
       font-weight: bold;
+    }
+  }
+
+  //Efeito de carregamento
+  .ant-spin-nested-loading {
+    min-height: 100px;
+    > div > .ant-spin .ant-spin-text {
+      color: #666666;
+      font-weight: bold;
+      font-size: 2em;
+    }
+    .ant-spin-blur {
+      opacity: 0;
     }
   }
 }

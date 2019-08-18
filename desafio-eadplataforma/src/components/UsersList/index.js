@@ -6,10 +6,10 @@ import * as Utils from '../../Utils/Utils';
 import * as actions from "../../store/actions";
 
 //Quantidade de itens por página 
-const INDEX_PAGE_SIZE_DEFAULT = 7
+const INDEX_PAGE_SIZE_DEFAULT = 10
 
 //Colunas da Tabela
-const columns = [
+const _columns = [
     {
         title: 'avatar',
         dataIndex: 'photo_url',
@@ -46,7 +46,7 @@ const columns = [
         dataIndex: 'status',
         key: 'status',
         render: status => (
-            validateStatus(status)
+            _validateStatus(status)
         )
     },
 ];
@@ -57,7 +57,7 @@ const setAmount = (amount) => {
 }
 
 //Validação de status Adimplente/Inadimplente
-const validateStatus = (status) => {
+const _validateStatus = (status) => {
     switch (status) {
         case "0":
             return <span>Adimplente</span>
@@ -66,7 +66,7 @@ const validateStatus = (status) => {
     }
 }
 
-const setPaginationStyle = (current, type, originalElement) => {
+const _setPaginationStyle = (current, type, originalElement) => {
     switch (type) {
         case "prev":
             return <a className="ant-pagination-item-link">Anterior</a>
@@ -77,14 +77,24 @@ const setPaginationStyle = (current, type, originalElement) => {
     }
 }
 
+const _handleOnChangePagination = async function(currentPage, dispatch) {
+    dispatch(actions.set_users_list_loading());
+    const offset = ((INDEX_PAGE_SIZE_DEFAULT * currentPage) - INDEX_PAGE_SIZE_DEFAULT);
+    let response = await Utils.getUsersPaginated(offset, currentPage, dispatch);
+    dispatch(actions.update_users_paginated_list({...response, currentPage: currentPage}));
+}
+
 const UsersList = ({ usersList, searchValue, dispatch }) => (
     <div className={`usersList ${searchValue !== '' ? 'search-result' : ''}`}>
-        {console.log(usersList.pagination.current)}
         <Table
             dataSource={usersList.users}
-            columns={columns}
+            columns={_columns}
             rowKey="id"
-            loading={usersList.loading}
+            loading={{
+                spinning: usersList.loading,
+                tip: "Buscando",
+                indicator: <span className="loading_spin"></span>
+            }}
             pagination={{
                 pageSize: INDEX_PAGE_SIZE_DEFAULT,
                 showHeader: false,
@@ -96,15 +106,16 @@ const UsersList = ({ usersList, searchValue, dispatch }) => (
             pageSize={INDEX_PAGE_SIZE_DEFAULT}
             total={usersList.totalUsers}
             itemRender={(current, type, originalElement) =>
-                setPaginationStyle(current, type, originalElement)
+                _setPaginationStyle(current, type, originalElement)
             }
-            current={usersList.pagination.current}
-            onChange={async (currentPage) => {
-                dispatch(actions.set_users_list_loading());
-                const offset = ((INDEX_PAGE_SIZE_DEFAULT * currentPage) - INDEX_PAGE_SIZE_DEFAULT);
-                let response = await Utils.getUsersPaginated(offset, currentPage, dispatch);
-                dispatch(actions.update_users_paginated_list({...response, currentPage: currentPage}));
-            }}
+            current={parseInt(usersList.pagination.current)}
+            // onChange={async (currentPage) => {
+            //     dispatch(actions.set_users_list_loading());
+            //     const offset = ((INDEX_PAGE_SIZE_DEFAULT * currentPage) - INDEX_PAGE_SIZE_DEFAULT);
+            //     let response = await Utils.getUsersPaginated(offset, currentPage, dispatch);
+            //     dispatch(actions.update_users_paginated_list({...response, currentPage: currentPage}));
+            // }}
+            onChange={(page) => {_handleOnChangePagination(page, dispatch)}}
         />
     </div>
 )

@@ -13,6 +13,7 @@ function _handleSearchOnChange(searchValue, dispatch) {
     dispatch(actions.set_search(searchValue));
 
     if (searchValue !== "") {
+        dispatch(actions.set_users_list_loading());
         _getSearchResultsDebounced(searchValue, dispatch);
     } else {
         _getUsersData(dispatch);
@@ -42,6 +43,10 @@ const Header = ({ modules, dispatch }) => (
             mode="horizontal">
             <Menu.Item key="notification" className="notification">
             </Menu.Item>
+            {/*
+            TODO
+            	Topo: Deverá trazer a foto de perfil de um usuário do endpoint GET /api/1/profile/:id
+             */}
             <Menu.Item key="user-avatar" className="user-avatar">
             </Menu.Item>
         </Menu>

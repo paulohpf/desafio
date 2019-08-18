@@ -3,10 +3,10 @@ import { createStore } from 'redux';
 const INITIAL_STATE = {
     searchValue: '',
     usersList: {
-        totalUsers: '',
-        totalInadimplentes: '',
-        totalAdimplentes: '',
-        totalAmount: '',
+        totalUsers: 0,
+        totalInadimplentes: 0,
+        totalAdimplentes: 0,
+        totalAmount: 0,
         pagination: {
             current: 1
         },

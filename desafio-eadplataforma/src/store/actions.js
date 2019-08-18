@@ -7,7 +7,6 @@ export function get_dashboard_data(data) {
 }
 
 export function update_users_paginated_list(data) {
-    console.log(data);
     return {
         type: 'UPDATE_USERS_PAGINATED_LIST',
         loading: false,

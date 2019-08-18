@@ -17,6 +17,7 @@ class SiderComponent extends Component {
                 <div key="logo" className="logo" />
                 <Menu
                     mode="inline"
+                    defaultSelectedKeys={['painel']}
                 >
                     <Menu.Item key="painel" className="painel">
                         Painel

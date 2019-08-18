@@ -4,8 +4,6 @@ import './Overview.scss';
 
 const Overview = ({ usersList, dispatch }) => (
     <div className="overview">
-        {/* {JSON.stringify(usersList)} */}
-        <h2>Visão geral</h2>
         <div className="data">
             <div>
                 <h3>Total de clientes</h3>

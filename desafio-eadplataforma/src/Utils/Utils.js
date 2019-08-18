@@ -31,7 +31,9 @@ export async function getData() {
         let amountUsersTotal = 0;
 
         users.map((user) => {
-            amountUsersTotal += parseFloat(user.amount);
+            if(user.status === "1") {
+                amountUsersTotal += parseFloat(user.amount);
+            }
             return true
         });
 
@@ -79,8 +81,9 @@ export async function getSearchResults(searchValue = null, dispatch) {
         console.error(error);
     });
 
+    //Por conta do servidor estar respondendo a uma String com chaves "{msg: 0 records found!}" ao invés de um Objeto precisei realizar a validação com chaves na String
     let responseObj = {
-        search: response.data !== '0 records found!' ? response.data.search : []
+        search: response.data !== '{msg: 0 records found!}' ? response.data.search : []
     }
 
     return responseObj;

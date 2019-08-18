@@ -3,6 +3,12 @@
   color: #8a8a8a;
 }
 
+input {
+  &:focus {
+    outline: none;
+  }
+}
+
 .container {
   min-height: 100vh !important;
 }
@@ -17,7 +23,7 @@ h2 {
   font-weight: bold;
   font-size: 1.3em;
   &:before {
-    content: '';
+    content: "";
     border-right: 3px solid #1bbc9b;
     margin-right: 5px;
   }
@@ -25,4 +31,12 @@ h2 {
 
 .ant-pagination-disabled {
   display: none !important;
+}
+
+//Loading Spinner
+.loading_spin {
+  width: 25px;
+  height: 25px;
+  background: url('./images/loading_spinner.svg') center no-repeat;
+  background-size: 90px;
 }
