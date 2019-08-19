@@ -44,14 +44,6 @@ export function set_users_list_loading(loading = true) {
     }
 }
 
-export function set_pagination(pagination) {
-    console.log(pagination);
-    return {
-        type: 'SET_PAGINATION',
-        pagination
-    }
-}
-
 export function set_search(searchValue) {
     return {
         type: 'SET_SEARCH',

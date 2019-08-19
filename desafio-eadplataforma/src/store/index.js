@@ -85,16 +85,6 @@ function reducer(state = INITIAL_STATE, action) {
                     loading: action.loading
                 }
             }
-        case 'SET_PAGINATION':
-            return {
-                ...state,
-                usersList: {
-                    data: { ...state.usersList.data },
-                    loading: { ...state.usersList.loading },
-                    // pagination: action.pagination
-                }
-            }
-
 
         default:
             return state;

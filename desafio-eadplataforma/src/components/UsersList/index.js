@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './Userslist.scss';
 import { Avatar, Table, Pagination } from 'antd';
-import * as Utils from '../../Utils/Utils';
+import { getUsersPaginated } from '../../Utils/Utils';
 import * as actions from "../../store/actions";
 
 const UsersList = ({ usersList, searchValue, dispatch }) => {
@@ -83,7 +83,7 @@ const UsersList = ({ usersList, searchValue, dispatch }) => {
     const _handleOnChangePagination = async function (currentPage) {
         dispatch(actions.set_users_list_loading());
         const offset = ((INDEX_PAGE_SIZE_DEFAULT * currentPage) - INDEX_PAGE_SIZE_DEFAULT);
-        let response = await Utils.getUsersPaginated(offset, currentPage, dispatch);
+        let response = await getUsersPaginated(offset, currentPage, dispatch);
         dispatch(actions.update_users_paginated_list({ ...response, currentPage: currentPage }));
     }
 

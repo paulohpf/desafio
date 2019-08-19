@@ -23,7 +23,7 @@ const Header = ({ modules, dispatch }) => {
             _getProfileData(dispatch);
         }
         fetchData();
-    }, [dispatch])
+    });
 
     function _handleSearchOnChange(searchValue) {
         dispatch(actions.set_search(searchValue));

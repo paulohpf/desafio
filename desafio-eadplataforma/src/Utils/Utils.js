@@ -33,7 +33,6 @@ export async function getData() {
 
         users.map((user) => {
             if (user.status === "0") {
-                console.log(`Calculo: ${amountUsersTotal} + ${parseFloat(user.amount)} = ${(amountUsersTotal + parseFloat(user.amount))}`);
                 amountUsersTotal = amountUsersTotal + parseFloat(user.amount);
             }
             return true
@@ -83,9 +82,11 @@ export async function getSearchResults(searchValue = null, dispatch) {
         console.error(error);
     });
 
-    //Por conta do servidor estar respondendo a uma String com chaves "{msg: 0 records found!}" ao invés de um Objeto precisei realizar a validação com chaves na String
+    console.log(response);
+
+    //Por conta do servidor estar respondendo a uma String com chaves "{msg: "0 records found!"}" ao invés de um Objeto precisei realizar a validação com chaves na String
     let responseObj = {
-        search: response.data !== '{msg: 0 records found!}' ? response.data.search : []
+        search: response.data !== '{msg: "0 records found!"}' ? response.data.search : []
     }
 
     return responseObj;

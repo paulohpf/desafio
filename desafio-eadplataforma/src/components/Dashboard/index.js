@@ -16,7 +16,6 @@ const Dashboard = ({ modules, dispatch }) => {
     
         fetchData();
       }, [dispatch]);
-
     
     return <div className="dashboard">
         {modules.searchValue === "" ? (
