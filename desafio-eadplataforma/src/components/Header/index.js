@@ -25,33 +25,33 @@ const Header = ({ modules, dispatch }) => {
         fetchData();
     }, [dispatch])
 
-    function _handleSearchOnChange(searchValue, dispatch) {
+    function _handleSearchOnChange(searchValue) {
         dispatch(actions.set_search(searchValue));
 
         if (searchValue !== "") {
             dispatch(actions.set_users_list_loading());
             getSearchResultsDebounced(searchValue, dispatch);
         } else {
-            _getUsersData(dispatch);
+            _getUsersData();
         }
     }
 
     //Recebimento da lista de usuários padrão
-    async function _getUsersData(dispatch) {
+    async function _getUsersData() {
         dispatch(actions.set_users_list_loading());
         let response = await getData();
         dispatch(actions.get_dashboard_data(response));
     }
 
     //Dados do perfil
-    async function _getProfileData(dispatch) {
+    async function _getProfileData() {
         let response = await getProfileData(1);
         dispatch(actions.set_profile(response));
     }
 
     return <header className="header" style={{ background: '#fff', }}>
         <div className="search">
-            <input name="input-search" type="text" value={modules.searchValue} placeholder="Busque por clientes" onChange={(event) => _handleSearchOnChange(event.target.value, dispatch)} />
+            <input name="input-search" type="text" value={modules.searchValue} placeholder="Busque por clientes" onChange={(event) => _handleSearchOnChange(event.target.value)} />
         </div>
         <Menu className="header-menu"
             mode="horizontal">

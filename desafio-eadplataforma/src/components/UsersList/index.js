@@ -80,7 +80,7 @@ const UsersList = ({ usersList, searchValue, dispatch }) => {
         }
     }
 
-    const _handleOnChangePagination = async function (currentPage, dispatch) {
+    const _handleOnChangePagination = async function (currentPage) {
         dispatch(actions.set_users_list_loading());
         const offset = ((INDEX_PAGE_SIZE_DEFAULT * currentPage) - INDEX_PAGE_SIZE_DEFAULT);
         let response = await Utils.getUsersPaginated(offset, currentPage, dispatch);
@@ -89,7 +89,7 @@ const UsersList = ({ usersList, searchValue, dispatch }) => {
 
     return <div className={`usersList ${searchValue !== '' ? 'search-result' : ''}`}>
         {//Mensagem com contador de resultados
-            searchValue !== "" && usersList.loading === false ? <span>Foram encontrados {usersList.users.length} resultado(s)</span> : null
+            searchValue !== "" && usersList.loading === false ? <span className="search-found-message">Foram encontrados <b>{usersList.users.length} resultados</b></span> : null
         }
         <Table
             dataSource={usersList.users}
@@ -114,7 +114,7 @@ const UsersList = ({ usersList, searchValue, dispatch }) => {
                 _setPaginationStyle(current, type, originalElement)
             }
             current={parseInt(usersList.pagination.current)}
-            onChange={(page) => { _handleOnChangePagination(page, dispatch) }}
+            onChange={(page) => { _handleOnChangePagination(page) }}
         />
     </div>
 }
