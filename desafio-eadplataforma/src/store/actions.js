@@ -1,3 +1,15 @@
+export function set_profile (data) {
+    return {
+        type: 'SET_PROFILE',
+        profile: {
+            id: data.id,
+            name: data.name,
+            email: data.email,
+            photo_url: data.photo_url
+        }
+    }
+}
+
 export function get_dashboard_data(data) {
     return {
         type: 'GET_DASHBOARD_DATA',

@@ -11,7 +11,7 @@
   }
 
   .search {
-    padding: 5px;
+    padding: 5px 0;
     flex-grow: 1;
     position: relative;
     display: flex;
@@ -57,14 +57,16 @@
     }
 
     .ant-menu-item.user-avatar {
-      &:before {
-        content: "";
-        width: 60px;
-        height: 100%;
-        background: url("../../images/user-avatar.png") no-repeat center;
-        position: relative;
-        display: inline-block;
-      }
+      display: flex;
+      align-items: center;
+      // &:before {
+      //   content: "";
+      //   width: 60px;
+      //   height: 100%;
+      //   background: url("../../images/user-avatar.png") no-repeat center;
+      //   position: relative;
+      //   display: inline-block;
+      // }
 
       &:after {
         content: "";
@@ -73,6 +75,7 @@
         background: url("../../images/arrow-down.png") no-repeat center;
         position: relative;
         display: inline-block;
+        padding: 0 15px;
       }
     }
   }

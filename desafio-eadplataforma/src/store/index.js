@@ -2,6 +2,13 @@ import { createStore } from 'redux';
 
 const INITIAL_STATE = {
     searchValue: '',
+    profile: {
+        id: null,
+        name: null,
+        email: null,
+        photo_url: null,
+        loading: false
+    },
     usersList: {
         totalUsers: 0,
         totalInadimplentes: 0,
@@ -17,6 +24,17 @@ const INITIAL_STATE = {
 
 function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
+        case 'SET_PROFILE': 
+        return {
+            ...state,
+            profile: {
+                id: action.profile.id,
+                name: action.profile.name,
+                email: action.profile.email,
+                photo_url: action.profile.photo_url,
+                loading: action.profile.loading
+            }
+        }
         case 'SET_SEARCH':
             return {
                 ...state,

@@ -3,6 +3,7 @@ import axios from "axios";
 axios.defaults.baseURL = 'api/1';
 axios.defaults.headers['Authorization'] = '123456789';
 
+//Recebo os dados de todos os usuários
 export async function getData() {
 
     //Retorna o valor de usuários Inadimplentes
@@ -28,11 +29,12 @@ export async function getData() {
     //Retorna o valor total arrecadado
     const calcAmount = (users) => {
 
-        let amountUsersTotal = 0;
+        let amountUsersTotal = 0.00;
 
         users.map((user) => {
-            if(user.status === "1") {
-                amountUsersTotal += parseFloat(user.amount);
+            if (user.status === "0") {
+                console.log(`Calculo: ${amountUsersTotal} + ${parseFloat(user.amount)} = ${(amountUsersTotal + parseFloat(user.amount))}`);
+                amountUsersTotal = amountUsersTotal + parseFloat(user.amount);
             }
             return true
         });
@@ -84,6 +86,23 @@ export async function getSearchResults(searchValue = null, dispatch) {
     //Por conta do servidor estar respondendo a uma String com chaves "{msg: 0 records found!}" ao invés de um Objeto precisei realizar a validação com chaves na String
     let responseObj = {
         search: response.data !== '{msg: 0 records found!}' ? response.data.search : []
+    }
+
+    return responseObj;
+}
+
+export async function getProfileData(profileID) {
+    const url = `profile/${profileID}`;
+
+    let response = await axios.get(url).catch(function (error) {
+        console.error(error);
+    });
+
+    let responseObj = {
+        id: response.data.id,
+        name: response.data.name,
+        email: response.data.email,
+        photo_url: response.data.photo_url
     }
 
     return responseObj;
